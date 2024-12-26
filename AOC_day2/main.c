@@ -4,6 +4,7 @@
 #include "input.h"
 
 int arr_y_size (int arr[SIZEX][SIZEY], int i);
+int is_safe (int arr[SIZEX][SIZEY], int i, int size);
 int sign (int x);
 
 int main() {
@@ -12,42 +13,18 @@ int main() {
     // answer is 252
 
     int counter = 0;
-    int direction = 0;
     int size_y;
 
     for (int i = 0; i < SIZEX; i++)
     {
 
-        bool is_monotonic = true;
         size_y = arr_y_size(list, i);
 
-        for (int j = 0; j < size_y - 1; j++)
-        {
-
-            int diff = list[i][j + 1] - list[i][j];
-
-            if (abs(diff) < 1 || abs(diff) > 3)
-            {
-                is_monotonic = false;
-                break;
-            }
-
-            if (j == 0)
-            {
-                direction = sign(diff);
-            }
-            else if (direction != sign(diff))
-            {
-                is_monotonic = false;
-                break;
-            }
-        }
-        printf("%d\n", is_monotonic);
-
-        if (is_monotonic)
+        if (is_safe(list, i, size_y) == 1)
         {
             counter++;
         }
+
     }
 
     printf("%d\n", counter);
@@ -64,12 +41,38 @@ int arr_y_size (int arr[SIZEX][SIZEY], int i) {
         {
             counter++;
         }
-        else
-        {
+        else {
             break;
         }
     }
     return counter;
+}
+
+int is_safe (int arr[SIZEX][SIZEY], int i, int size) {
+    int issafe = 1;
+    int direc = 0;
+
+    for (int j = 0; j < size - 1; j++) {
+        int diff = arr[i][j + 1] - arr[i][j];
+
+        if (abs(diff) < 1 || abs(diff) > 3)
+        {
+            issafe = 0;
+            break;
+        }
+
+        if (j == 0)
+        {
+            direc = sign(diff);
+        }
+        else if (direc != sign(diff))
+        {
+            issafe = 0;
+            break;
+        }
+    }
+
+    return issafe;
 }
 
 int sign (int x) {
