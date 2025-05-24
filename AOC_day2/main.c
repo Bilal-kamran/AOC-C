@@ -5,6 +5,7 @@
 
 int arr_y_size (int arr[SIZEX][SIZEY], int i);
 int is_safe (int arr[SIZEX][SIZEY], int i, int size);
+int rmsafe (int arr[SIZEX][SIZEY], int i, int size);
 int sign (int x);
 
 int main() {
@@ -70,6 +71,20 @@ int is_safe (int arr[SIZEX][SIZEY], int i, int size) {
             issafe = 0;
             break;
         }
+    }
+
+    return issafe;
+}
+
+
+int rmsafe (int arr[SIZEX][SIZEY], int i, int size) {
+    int n = size - 1;
+    int *newarr = malloc((n) * sizeof(int));
+    int skip_index = 0;
+    int issafe = 1;
+
+    for (int i = 0; i < size; i++)
+    {
     }
 
     return issafe;
